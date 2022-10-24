@@ -1,0 +1,24 @@
+<view>
+    <text wx:if="{{isShow}}">数据绑定: {{test}}</text>
+    <view>
+        <block
+        wx:for="{{arr}}"
+        wx:for-item="val"
+        wx:key="*this">
+            <view>第{{index + 1}}本书的名称: {{val.book}}----书的价格: {{val.price}}</view>
+        </block>
+    </view>
+
+    <view>模版的的使用</view>
+    <template name="odd">
+        <view>我是计数模版：odd {{templateData}}</view>
+    </template>
+    <template name="even">
+        <view>我是偶数模版:even</view>
+    </template>
+
+    <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
+        <template data="{{templateData}}" is="{{item % 2 == 0 ? 'even' : 'odd'}}"></template>
+    </block>
+</view>
+  

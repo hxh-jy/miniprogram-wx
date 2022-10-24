@@ -45,6 +45,7 @@
       }
     ]
   },
+  "entryPagePath": "pages/ask/index",
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

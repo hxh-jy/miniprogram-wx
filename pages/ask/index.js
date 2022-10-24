@@ -5,7 +5,27 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        test: '测试数据绑定的实现',
+        isShow: true,
+        arr: [
+            {
+                book: 'react',
+                price: 65
+            },
+            {
+                book: 'mysql',
+                price: 73
+            },
+            {
+                book: 'vue',
+                price: 70
+            },
+            {
+                book: 'nodeJs',
+                price: 60
+            }
+        ],
+        templateData: '通过模版传入的数据'
     },
 
     /**
