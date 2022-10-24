@@ -1,5 +1,6 @@
 <view>
-    <text wx:if="{{isShow}}">数据绑定: {{test}}</text>
+    <input bindinput="handleInp" type="text" model:value="{{val}}" placeholder="请输入内容"/>
+    <text bindtap="tapName" wx:if="{{isShow}}">数据绑定: {{test}}</text>
     <view>
         <block
         wx:for="{{arr}}"
@@ -11,7 +12,7 @@
 
     <view>模版的的使用</view>
     <template name="odd">
-        <view>我是计数模版：odd {{templateData}}</view>
+        <view>我是计数模版：odd</view>
     </template>
     <template name="even">
         <view>我是偶数模版:even</view>
@@ -20,5 +21,27 @@
     <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
         <template data="{{templateData}}" is="{{item % 2 == 0 ? 'even' : 'odd'}}"></template>
     </block>
+    <image class="image" src="/static/icons/game_info.png"  lazy-load="false"> 
+    </image>
+    <rich-text>富文本</rich-text>
+    <switch>开关选择器</switch>
+    <view>
+        <block
+        wx:for="{{arr}}"
+        wx:for-item="val"
+        wx:key="*this">
+            <view>第{{index + 1}}本书的名称: {{val.book}}----书的价格: {{val.price}}</view>
+        </block>
+    </view>
+    <view>
+        <block
+        wx:for="{{arr}}"
+        wx:for-item="val"
+        wx:key="*this">
+            <view>第{{index + 1}}本书的名称: {{val.book}}----书的价格: {{val.price}}</view>
+        </block>
+    </view>
+    
+    <askComponent bindSon="handleSon" str="--------父元素给子元素传递数据"></askComponent>
 </view>
   

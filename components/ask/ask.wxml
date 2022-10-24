@@ -1,0 +1,5 @@
+<!--components/ask/ask.wxml-->
+<text>自定义组件的使用</text>
+<view>
+    <text>接收父元素传递过来的数据:{{str}}</text>
+</view>
