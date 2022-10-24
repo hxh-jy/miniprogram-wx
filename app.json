@@ -1,13 +1,49 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/strategy/index",
+    "pages/qa/index",
+    "pages/ask/index"
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "#0FB8A0",
+    "navigationBarTitleText": "Ourplay",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar":{
+    "color": "#ccc",
+    "selectColor": "#10B8A1",
+    "backgroundColor": "#fff",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/icons/home.png",
+        "selectedIconPath": "static/icons/home_active.png"
+      },
+      {
+        "pagePath": "pages/strategy/index",
+        "text": "攻略",
+        "iconPath": "static/icons/game_recommend.png",
+        "selectedIconPath": "static/icons/game_recommend_active.png"
+      },
+      {
+        "pagePath": "pages/ask/index",
+        "text": "问答",
+        "iconPath": "static/icons/game_answer.png",
+        "selectedIconPath": "static/icons/game_answer_active.png"
+      },
+      {
+        "pagePath": "pages/qa/index",
+        "text": "帮助",
+        "iconPath": "static/icons/game_info.png",
+        "selectedIconPath": "static/icons/game_info_active.png"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
