@@ -1,0 +1,19 @@
+{
+  "name": "miniprogram-wx",
+  "version": "1.0.0",
+  "description": "this is a small program use of react",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hxh-jy/miniprogram-wx.git"
+  },
+  "author": "hxh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hxh-jy/miniprogram-wx/issues"
+  },
+  "homepage": "https://github.com/hxh-jy/miniprogram-wx#readme"
+}
