@@ -1,4 +1,4 @@
-// pages/ask/index.js
+// pages/base/index.js
 Page({
 
     /**

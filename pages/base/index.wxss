@@ -1,0 +1,22 @@
+/* pages/base/index.wxss */
+.container {
+    width: 100px;
+    height: 120px;
+    border: 1px solid red;
+}
+.container view{
+    width: 100px;
+    height: 100px;
+    color: lightcoral;
+    text-align: center;
+    line-height: 100px;
+}
+.container view:nth-child(1) {
+    background-color: lightgreen;
+}
+.container view:nth-child(2) {
+    background-color: lightskyblue;
+}
+.container view:nth-child(3) {
+    background-color: lightcoral;
+}

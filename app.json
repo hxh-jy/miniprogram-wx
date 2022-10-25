@@ -2,9 +2,9 @@
   "pages":[
     "pages/index/index",
     "pages/logs/logs",
-    "pages/strategy/index",
+    "pages/event/index",
     "pages/qa/index",
-    "pages/ask/index"
+    "pages/base/index"
   ],
   "window":{
     "backgroundTextStyle":"dark",
@@ -26,14 +26,14 @@
         "selectedIconPath": "static/icons/home_active.png"
       },
       {
-        "pagePath": "pages/strategy/index",
-        "text": "攻略",
+        "pagePath": "pages/event/index",
+        "text": "事件",
         "iconPath": "static/icons/game_recommend.png",
         "selectedIconPath": "static/icons/game_recommend_active.png"
       },
       {
-        "pagePath": "pages/ask/index",
-        "text": "问答",
+        "pagePath": "pages/base/index",
+        "text": "基础",
         "iconPath": "static/icons/game_answer.png",
         "selectedIconPath": "static/icons/game_answer_active.png"
       },
@@ -45,7 +45,7 @@
       }
     ]
   },
-  "entryPagePath": "pages/ask/index",
+  "entryPagePath": "pages/event/index",
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

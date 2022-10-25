@@ -1,0 +1,6 @@
+<view>
+    <view bindtap="handletap" data-info="{{2}}">
+        测试触摸事件
+    </view>
+</view>
+  

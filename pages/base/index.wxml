@@ -1,4 +1,11 @@
 <view>
+    <scroll-view class="container" scroll-y> 
+        <view>A</view>
+        <view>B</view>
+        <view>C</view>
+    </scroll-view>
+    <text selectable>这是一段落文字</text>
+    <rich-text nodes="<h1 style='color: red'>标题</h1>"></rich-text>
     <input bindinput="handleInp" type="text" model:value="{{val}}" placeholder="请输入内容"/>
     <text bindtap="tapName" wx:if="{{isShow}}">数据绑定: {{test}}</text>
     <view>
@@ -43,5 +50,5 @@
     </view>
     
     <askComponent bindSon="handleSon" str="--------父元素给子元素传递数据"></askComponent>
-</view>
+</view>/
   

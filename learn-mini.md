@@ -1,5 +1,9 @@
 # 一、小程序配置 app.json
 
+**JSON配置文件的作用**
+
+SON 是一种数据格式，在实际开发中，JSON 总是以配置文件的形式出现。小程序项目中也不例外：通过不同 的 .json 配置文件，可以对小程序项目进行不同级别的配置。
+
 ## 1.1 全局配置
 
 + ### 小程序配置 app.json  
@@ -36,13 +40,13 @@
           "selectedIconPath": "static/icons/home_active.png" // 选中时的图片路径
         },
         {
-          "pagePath": "pages/strategy/index",
+          "pagePath": "pages/event/index",
           "text": "攻略",
           "iconPath": "static/icons/game_recommend.png",
           "selectedIconPath": "static/icons/game_recommend_active.png"
         },
         {
-          "pagePath": "pages/ask/index",
+          "pagePath": "pages/base/index",
           "text": "问答",
           "iconPath": "static/icons/game_answer.png",
           "selectedIconPath": "static/icons/game_answer_active.png"
@@ -80,6 +84,16 @@
 ## 1.3 sitemap配置
 
 小程序根目录下的 `sitemap.json` 文件用于配置小程序及其页面是否允许被微信索引，文件内容为一个 JSON 对象，如果没有 `sitemap.json` ，则默认为所有页面都允许被索引；
+
+## 1.4 项目结构
+
++ ① pages 用来存放所有小程序的页面 
++ ② utils 用来存放工具性质的模块（例如：格式化时间的自定义模块）
++ ③ app.js 小程序项目的入口文件 
++ ④ app.json 小程序项目的全局配置文件 
++ ⑤ app.wxss 小程序项目的全局样式文件 
++ ⑥ project.config.json 项目的配置文件 
++ ⑦ sitemap.json 用来配置小程序及其页面是否允许被微信索
 
 # 二、注册小程序 app.js
 
@@ -189,16 +203,34 @@ Page({
 
 + ## block wx:if
 
++ 如果要一次性控制多个组件的展示与隐藏，可以使用一个  标签将多个组件包装起来，并在 标签上使用 wx:if 控制属性
+
   因为 `wx:if` 是一个控制属性，需要将它添加到一个标签上。如果要一次性判断多个组件标签，可以使用一个 `<block/>` 标签将多个组件包装起来，并在上边使用 `wx:if` 控制属性。
 
   **注意：** `<block/>` 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，	只接受控制属性
 
-  ```html
-  <block wx:if="{{true}}">
-    <view> view1 </view>
-    <view> view2 </view>
-  </block>
-  ```
+**在小程序中，直接使用 hidden="{{ condition }}" 也能控制元素的显示与隐藏**
+
+```html
+<block wx:if="{{true}}">
+  <view> view1 </view>
+  <view> view2 </view>
+</block>
+```
+
+### 3.3.1 wx:if与hidden的对比
+
++ ① 运行方式不同 
+
+  wx:if 以动态创建和移除元素的方式，控制元素的展示与隐藏 
+
+  hidden 以切换样式的方式（display: none/block;），控制元素的显示与隐藏 
+
++ ② 使用建议 
+
+  频繁切换时，建议使用 hidden
+
+  控制条件复杂时，建议使用 wx:if 搭配 wx:elif、wx:else 进行展示与隐藏的切换
 
 ## 3.4 模版
 
@@ -252,6 +284,29 @@ import`可以在该文件中使用目标文件定义的`template
 
   **如：C import B，B import A，在 C 中可以使用 B 定义的`template`，在 B 中可以使用 A 定义的`template`，但是 C 不能使用 A 定义的`template`**。
 
+## 3.6 和HTML的区别
+
++ 标签名称不同 
+
+    HTML （div, span, img, a） 
+
+    WXML（view, text, image, navigator） ②
+
++ 属性节点不同 
+
+   ```html
+   <a href="#">超链接</a>
+   <navigator url="/pages/home/home"></navigator>
+   ```
+
++ 提供了类似于 Vue 中的模板语法 
+
+  数据绑定  
+
+  列表渲染 
+
+  条件渲
+
 # 四、事件
 
 - 事件是视图层到逻辑层的通讯方式。
@@ -259,17 +314,56 @@ import`可以在该文件中使用目标文件定义的`template
 - 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数。
 - 事件对象可以携带额外信息，如 id, dataset, touches。
 
-**事件的使用**
+## 4.1**事件的使用**
 
-+ `bindtap`:当用户点击该组件的时候会在该页面对应的 Page 中找到相应的事件处理函数。
++ `bindtap`:当用户点击该组件的时候会在该页面对应的 Page 中找到相应的事件处理函数。手指触摸后马上立刻，类似于HTML中的click事件
++ `bindinput` 文本框的输入事件
++ bindchange  状态改变时触发
 + catchtap: 和bindtap类似，但是该事件会阻止事件向上冒泡。
 
-**事件分类**
+## 4.2**事件分类**
 
 1. 冒泡事件：当一个组件上的事件被触发后，该事件会向父节点传递。
 2. 非冒泡事件：当一个组件上的事件被触发后，该事件不会向父节点传递。
 
-## 4.1 双向绑定
+## 4.3**事件属性**
+
++ type 事件类型
++ timeStamp 页面打开到触发事件所经过的毫秒
++ target 触发事件的组件的一些属性值集合
++ currentTarget  当前组件的一些属性值集合
++  detail  额外的信息
++  touches  触摸事件，当前停留在屏幕中的触摸点信息的数组
++  changedTouches    触摸事件，当前变化的触摸点信息的数
+
+## 4.4 事件传参
+
+通过调用 this.setData(dataObject) 方法，可以给页面 data 中的数据重新赋值，示例如下
+
++ 小程序中的事件传参比较特殊，不能在绑定事件的同时为事件处理函数传递参数，小程序中的事件传参比较特殊，不能在绑定事件的同时为事件处理函数传递参数
+
++ 小程序中的事件传参比较特殊，不能在绑定事件的同时为事件处理函数传递参数
+
+  - 小程序中的事件传参比较特殊，不能在绑定事件的同时为事件处理函数传递参数
+  - 数值 2 会被解析为参数的值
+
++ 在事件处理函数中，通过 event.target.dataset.参数名 即可获取到具体参数的值
+
+  ```html
+  <view>
+      <view bindtap="handletap" data-info="{{2}}">
+          测试触摸事件
+      </view>
+  </view>
+  
+  Page({
+  	handletap(e) {
+          console.log('获取触摸事件的参数',e.target.dataset)
+      },
+  })
+  ```
+
+## 4.5 双向绑定
 
 如果使用 `this.setData({ value: 'leaf' })` 来更新 `value` ，`this.data.value` 和输入框的中显示的值都会被更新为 `leaf` ；但如果用户修改了输入框里的值，却不会同时改变 `this.data.value` 。
 
@@ -281,3 +375,159 @@ import`可以在该文件中使用目标文件定义的`template
 
 **自定义组件中传递双向绑定......**
 
+# 五、宿主环境
+
+**定义：** 宿主环境指的是小程序运行所必须依赖的环境，脱离了宿主环境的软件是没有任何意义的
+
+**小程序的宿主环境是手机微信**
+
+## 5.1 通信模型
+
+小程序中通信的主体是渲染层和逻辑层，其中wxml和wxss样式工作在渲染层；js脚本工作在逻辑层
+
+## 5.2 运行机制
+
+- 小程序启动过程
+
+  ① 把小程序的代码包下载到本地 
+
+  ② 解析 app.json 全局配置文件 
+
+  ③ 执行 app.js 小程序入口文件，调用 App() 创建小程序实例 
+
+  ④ 渲染小程序首页 
+
+  ⑤ 小程序启动完成
+
+- 页面渲染过程
+
+  ① 加载解析页面的 .json 配置文件 
+
+  ② 加载页面的 .wxml 模板和 .wxss 样式
+
+  ③ 执行页面的 .js 文件，调用 Page() 创建页面实例 
+
+  ④ 页面渲染完成
+
+## 5.3 组件
+
++ 视图容器
+
+  - view 类似于HTML中的div，是一个块级元素
+  - scroll-view 可滚动的视图区域，常用来实现滚动列表效果
+  - swiper 和 swiper-item   轮播图容器组件 和 轮播图 item 组件
+
++ 基础内容组件
+
+  - rich-text   富文本组件，支持把 HTML 字符串渲染为 WXML 结构，rich-text 组件的 nodes 属性节点，把 HTML 字符串渲染为对应的 UI 结构
+  - text  文本组件 ，类似于 HTML 中的 span 标签，是一个行内元素，通过 text 组件的 selectable 属性，实现长按选中文本内容的效果
+
++ 其他常用组件
+
+  - button  按钮组件，通过 open-type 属性可以调用微信提供的各种功能（客服、转发、获取用户授权、获取用户信息等）
+
+  - image 图片组件，默认宽度约 300px、高度约 240p
+
+    其**mode **属性用来指定图片的裁剪和缩放模式
+
+    - scaleToFill  不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素
+    - aspectFit 保持纵横比缩放图片，使图片的长边能完全显示出来
+    - widthFix ，宽度不变，高度自动变化，
+    - heightFix ，高度不变，宽度自动变化，
+
+  - navigator  页面导航组件，类似于HTML中的a链接
+
+## 5.4 API
+
+小程序中的 API 是由宿主环境提供的，通过这些丰富的小程序 API，开发者可以方便的调用微信提供的能力， 例如：获取用户信息、本地存储、支付功能等。
+
++ 事件监听 API
+  - 特点：以 on 开头，用来监听某些事件的触发
+  - 举例：wx.onWindowResize(function callback) 监听窗口尺寸变化的事件
++ 同步 API
+  - 特点：以 Sync 结尾的 API 都是同步 API
+  - 举例：wx.setStorageSync('key', 'value') 向本地存储中写入内容
++ 异步 API
+  - 特点：类似于 jQuery 中的 $.ajax(options) 函数，需要通过 success、fail、complete 接收调用的结果
+  - 举例：wx.request() 发起网络数据请求，通过 success 回调函数接收数据
+
+## 5.5 小程序的发布流程
+
+**一个小程序的发布上线，一般要经过上传代码 -> 提交审核 -> 发布这三个步骤**
+
++ 开发版本 
+
+  使用开发者工具，可将代码上传到开发版本中。 开发版本只保留每人最新的一份上传的代码。 点击提交审核，可将代码提交审核。开发版本可删除，不影响线上版本和审核中版本的代码。
+
++ 体验版本
+
+  可以选择某个开发版本作为体验版，并且选取一份体验版。
+
++ 审核中的版本
+
+  只能有一份代码处于审核中。有审核结果后可以发布到线上，也可直接重新提交审核，覆盖原审核版本。
+
++ 线上版本
+
+  线上所有用户使用的代码版本，该版本代码在新版本代码发布后被覆盖更新
+
+**一个小程序的发布上线，一般要经过上传代码 -> 提交审核 -> 发布这三个步骤**
+
+登录小程序管理后台 -> 设置 -> 基本设置 -> 基本信息 -> 小程序码及线下物料下载
+
+# 六、网络数据请求
+
+出于安全性方面的考虑，小程序官方对数据接口的请求做出了如下 两个限制：
+
++ 只能请求 HTTPS 类型的接口
++ 必须将接口的域名添加到信任列表中
+
+## 6.1 配置请求合法域名
+
++ 需求描述：假设在自己的微信小程序中，希望请求 https://www.escook.cn/ 域名下的接口 
++ 配置步骤：登录微信小程序管理后台 -> 开发 -> 开发设置 -> 服务器域名 -> 修改 request 合法域名
+
+**注意事项**
+
+① 域名只支持 https 协议
+
+ ② 域名不能使用 IP 地址或 localhost 
+
+③ 域名必须经过 ICP 备案
+
+ ④ 服务器域名一个月内最多可申请 5 次修改
+
+## 6.2 发送get请求
+
+调用微信小程序提供的 wx.request() 方法，可以发起 GET 数据请求
+
+```js
+wx.request({
+    url: 'https://data.ourplay.net/smallprogram/tags',
+    data: {},
+    method: {},
+    success(res) {
+        console.log('获取请求成功时的数据',res)
+    }
+})
+```
+
+## 6.3 发送post请求
+
+调用微信小程序提供的 wx.request() 方法，可以发起 POST 数据请求，
+
+```js
+wx.request({
+    url: 'https://pt-qa.lbian.cn/WxUser/OnlineWxUserList',
+    method: 'POST',
+    success(res) {
+        console.log('获取post请求成功时的数据',res)
+    }
+})
+```
+
+很多情况下，我们需要在**页面刚加载**的时候，自动请求一些初始化的数据。此时需要在页面的 onLoad 事件 中调用获取数据的函数
+
+## 6.4 跨域与ajax
+
+跨域问题只存在于基于浏览器的 Web 开发中。由于小程序的宿主环境不是浏览器，而是微信客户端，所以小 程序中不存在跨域的问题。 Ajax 技术的核心是依赖于浏览器中的 XMLHttpRequest 这个对象，由于小程序的宿主环境是微信客户端，所 以小程序中不能叫做“发起 Ajax 请求”，而是叫做“发起网络数据请求”

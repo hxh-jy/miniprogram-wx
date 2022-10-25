@@ -1,5 +1,24 @@
-// pages/strategy/index.js
+// pages/event/index.js
 Page({
+    handletap(e) {
+        console.log('获取触摸事件的参数',e.target.dataset)
+        wx.request({
+          url: 'https://data.ourplay.net/smallprogram/tags',
+          data: {},
+          method: {},
+          success(res) {
+              console.log('获取get请求成功时的数据',res)
+          }
+        })
+
+        wx.request({
+          url: 'https://pt-qa.lbian.cn/WxUser/OnlineWxUserList',
+          method: 'POST',
+          success(res) {
+              console.log('获取post请求成功时的数据',res)
+          }
+        })
+    },
 
     /**
      * 页面的初始数据
