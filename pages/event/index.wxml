@@ -2,5 +2,19 @@
     <view bindtap="handletap" data-info="{{2}}">
         测试触摸事件
     </view>
+
+    <rich-text nodes="<h1 style='color: red'>导航</h1>"></rich-text>
+
+    <view>
+        <text>声明式导航：</text>
+        <navigator url="/pages/base/index?id=1" open-type="switchTab">跳转到tabbar页面</navigator>
+        <navigator url="/pages/logs/logs">跳转到非tabbar页面</navigator>
+        <navigator open-type="navigateBack" delta="1">后退导航</navigator>
+
+        <text>编程式导航</text>
+        <view bindtap="handleTabbar" style="color: green;">跳转到tabbar首页</view>
+        <view bindtap="handleNotab" style="color: blue;">跳转到非tabbar日志页</view>
+        <view bindtap="handleBack" style="color: orange;">后退</view>
+    </view>
 </view>
   

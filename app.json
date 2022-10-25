@@ -45,7 +45,6 @@
       }
     ]
   },
-  "entryPagePath": "pages/event/index",
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

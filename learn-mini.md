@@ -531,3 +531,137 @@ wx.request({
 ## 6.4 跨域与ajax
 
 跨域问题只存在于基于浏览器的 Web 开发中。由于小程序的宿主环境不是浏览器，而是微信客户端，所以小 程序中不存在跨域的问题。 Ajax 技术的核心是依赖于浏览器中的 XMLHttpRequest 这个对象，由于小程序的宿主环境是微信客户端，所 以小程序中不能叫做“发起 Ajax 请求”，而是叫做“发起网络数据请求”
+
+# 七、导航
+
+# 7.1 页面导航
+
+**定义：**页面导航指的是页面之间的相互跳转
+
+**实现方式**
+
++ 声明式导航
+
+  - 在页面上声明一个  导航组件
+
+  - 通过点击  组件实现页面跳转
+
++  编程式导航
+
+  - 调用小程序的导航 API，实现页面的跳转
+
+## 7.2 tabBar导航
+
+**声明式导航**
+
+tabBar 页面指的是被配置为 tabBar 的页面。 在使用  组件跳转到指定的 tabBar 页面时，需要指定 url 属性和 open-type 属性
+
++ url 表示要跳转的页面的地址，必须以 / 开头 
+
++ open-type 表示跳转的方式，必须为 switchTab
+
+**编程式导航**
+
+调用 wx.switchTab(Object object) 方法，可以跳转到 tabBar 页面。其中 Object 参数对象的属性列表如下
+
++ url   需要跳转的 tabBar 页面的路径，路径后不能带参数
++ success  接口调用成功的回调函数
++ fail  接口调用失败的回调函数
++ complete   接口调用结束的回调函数（调用成功、失败都会执行）
+
+
+
+## 7.3 导航到非tabBar页面
+
+**声明式导航**
+
+非 tabBar 页面指的是没有被配置为 tabBar 的页面。 在使用  组件跳转到普通的非 tabBar 页面时，则需要指定 url 属性和 open-type 属性，
+
++ url 表示要跳转的页面的地址，必须以 / 开头
++ open-type 表示跳转的方式，必须为 navigate
+
+**编程式导航**
+
+调用 wx.navigateTo(Object object) 方法，可以跳转到非 tabBar 的页面。其中 Object 参数对象的属性列表如下
+
++ url   需要跳转的 tabBar 页面的路径，路径后不能带参数
++ success  接口调用成功的回调函数
++ fail  接口调用失败的回调函数
++ complete   接口调用结束的回调函数（调用成功、失败都会执行）
+
+## 7.4 后退导航
+
+**声明式导航**
+
+如果要后退到上一页面或多级页面，则需要指定 open-type 属性和 delta 属性
+
++ open-type 的值必须是 navigateBack，表示要进行后退导航
++ delta 的值必须是数字，表示要后退的层级
++ 为了简便，如果只是后退到上一页面，则可以省略 delta 属性，因为其默认值就是 1
+
+**编程式导航**
+
+调用 wx.navigateBack(Object object) 方法，可以返回上一页面或多级页面。其中 Object 参数对象可选的 属性列表如下：
+
++ url   需要跳转的 tabBar 页面的路径，路径后不能带参数
++ success  接口调用成功的回调函数
++ fail  接口调用失败的回调函数
++ complete   接口调用结束的回调函数（调用成功、失败都会执行
+
+## 7.5 导航传参
+
+navigator 组件的 url 属性用来指定将要跳转到的页面的路径。同时，路径的后面还可以携带参数
+
++ 参数与路径之间使用 ? 分隔
++ 参数键与参数值用 = 相连
++ 不同参数用 & 分隔
+
+**编程式导航携带参数**
+
+调用 wx.navigateTo(Object object) 方法跳转页面时，也可以携带参数
+
+**接收参数**
+
+在 onLoad 中接收导航参数
+
+**通过声明式导航传参或编程式导航传参所携带的参数，可以直接在 onLoad 事件中直接获取到**
+
+```html
+<view>
+    <view bindtap="handletap" data-info="{{2}}">
+        测试触摸事件
+    </view>
+
+    <rich-text nodes="<h1 style='color: red'>导航</h1>"></rich-text>
+
+    <view>
+        <text>声明式导航：</text>
+        <navigator url="/pages/base/index?id=1" open-type="switchTab">跳转到tabbar页面</navigator>
+        <navigator url="/pages/logs/logs">跳转到非tabbar页面</navigator>
+        <navigator open-type="navigateBack" delta="1">后退导航</navigator>
+
+        <text>编程式导航</text>
+        <view bindtap="handleTabbar" style="color: green;">跳转到tabbar首页</view>
+        <view bindtap="handleNotab" style="color: blue;">跳转到非tabbar日志页</view>
+        <view bindtap="handleBack" style="color: orange;">后退</view>
+    </view>
+</view>
+ 
+// js
+    handleTabbar(e) {
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    },
+    handleNotab() {
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
+    },
+    handleBack() {
+      wx.navigateBack({
+        delta: 1,
+      })
+    },
+```
+

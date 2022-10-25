@@ -40,42 +40,37 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        console.log('监听页面加载:onload')
+        console.log('监听页面加载:onload,接收路由传递过来的参数',options)
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-        console.log('监听页面初次渲染完成:onready',this)
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        console.log('监听页面显示:onshow')
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-        console.log('监听页面隐藏:onhide')
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        console.log('监听页面卸载:onUnload')
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-        console.log('监听用户下拉的工作:onPullDownRefresh')
     },
 
     /**
@@ -89,9 +84,7 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
-        console.log('用户点击右上角分享按钮')
     },
     handleSon(e) {
-        console.log('接收子组件传递过来的数据',e)
     }
 })

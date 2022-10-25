@@ -19,6 +19,21 @@ Page({
           }
         })
     },
+    handleTabbar(e) {
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    },
+    handleNotab() {
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
+    },
+    handleBack() {
+      wx.navigateBack({
+        delta: 1,
+      })
+    },
 
     /**
      * 页面的初始数据
