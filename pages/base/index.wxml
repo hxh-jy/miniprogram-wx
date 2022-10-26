@@ -50,5 +50,10 @@
     </view>
     
     <askComponent bindSon="handleSon" str="--------父元素给子元素传递数据"></askComponent>
+
+    <view>
+        count的值为: {{count}}
+    </view>
+    <button bindtap="countAdd">+1</button>
 </view>/
   

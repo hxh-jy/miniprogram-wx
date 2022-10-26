@@ -662,6 +662,109 @@ navigator 组件的 url 属性用来指定将要跳转到的页面的路径。�
       wx.navigateBack({
         delta: 1,
       })
-    },
+    }
 ```
 
+# 八、 页面事件
+
+## 8.1 下拉刷新
+
+**定义：**下拉刷新是移动端的专有名词，指的是通过手指在屏幕上的下拉滑动操作，从而重新加载页面数据的行为。
+
+**启用下拉刷新**
+
++ ① 全局开启下拉刷新 
+
+  在 app.json 的 window 节点中，将 enablePullDownRefresh 设置为 true
+
++ ② 局部开启下拉刷新 
+
+  在页面的 .json 配置文件中，将 enablePullDownRefresh 设置为 true
+
+**监听下拉刷新事件**
+
+在页面的 .js 文件中，通过 onPullDownRefresh() 函数即可监听当前页面的下拉刷新事件。
+
+**停止刷新的效果**
+
+当处理完下拉刷新后，下拉刷新的 loading 效果会一直显示，不会主动消失，所以需要手动隐藏下拉刷新的 loading 效果。此时，调用 wx.stopPullDownRefresh() 可以停止当前页面的下拉刷新。
+
+## 8.2 上拉触底
+
+**定义：**上拉触底是移动端的专有名词，通过手指在屏幕上的上拉滑动操作，从而加载更多数据的行为
+
+**监听页面的上拉触底事件**
+
+通过 onReachBottom() 函数即可监听当前页面的上拉触底事件。
+
+**配置上拉触底距离**
+
+上拉触底距离指的是触发上拉触底事件时，滚动条距离页面底部的距离。 可以在全局或页面的 .json 配置文件中，通过 onReachBottomDistance 属性来配置上拉触底的距离。 小程序默认的触底距离是 50px，在实际开发中，可以根据自己的需求修改这个默认值
+
+```js
+Page({
+    data: {
+        colorList: [],
+        isloading: false  // 表示当前没有进行任何数据请求
+    },
+    getColors() {
+        // 添加loading效果
+        wx.showLoading({
+          title: '数据加载中',
+        })
+        this.setData({
+            isloading: true  // 表示当前正在进行数据请求
+        })
+        wx.request({
+            url:'https://www.escook.cn/api/color',
+            method: 'get',
+            success: ({data: res}) => {
+                this.setData({
+                    colorList: [...this.data.colorList,...res.data]
+                })
+            },
+            // 加载完成后隐藏loading效果
+            complete: () => {
+                wx.hideLoading()  // 隐藏加载中
+                this.setData({
+                    isloading: false  // 重新回到未请求的状态
+                })
+            }
+        })
+    },
+    onLoad: function(options) {
+        this.getColors()
+    },
+    // 上拉加载数据
+    onReachBottom: function() {
+        this.getColors()
+        this.setData({
+            isloading: true // 重新开启请求
+        })
+    }
+})
+```
+
+```html
+<view 
+    wx:for="{{colorList}}" 
+    wx:key="*this" 
+    class="num-item" 
+    style="background-color: rgba({{item}});"> 
+    {{item}}
+</view>
+```
+
+**案例实现步骤**
+
+① 定义获取随机颜色的方法
+
+② 在页面加载时获取初始数据 
+
+③ 渲染 UI 结构并美化页面效果
+
+④ 在上拉触底时调用获取随机颜色的方法 
+
+⑤ 添加 loading 提示效果 
+
+⑥ 对上拉触底进行节流处理

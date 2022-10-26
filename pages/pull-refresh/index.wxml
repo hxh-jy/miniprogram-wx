@@ -1,0 +1,8 @@
+<view 
+    wx:for="{{colorList}}" 
+    wx:key="*this" 
+    class="num-item" 
+    style="background-color: rgba({{item}});"> 
+    {{item}}
+</view>
+  

@@ -10,7 +10,8 @@
         <navigator url="/pages/base/index?id=1" open-type="switchTab">跳转到tabbar页面</navigator>
         <navigator url="/pages/logs/logs">跳转到非tabbar页面</navigator>
         <navigator open-type="navigateBack" delta="1">后退导航</navigator>
-
+        <navigator url="/pages/reach-bottom/index" style="color: rebeccapurple;">上拉加载</navigator>
+        <navigator url="/pages/pull-refresh/index" style="color: royalblue">下拉刷新</navigator>
         <text>编程式导航</text>
         <view bindtap="handleTabbar" style="color: green;">跳转到tabbar首页</view>
         <view bindtap="handleNotab" style="color: blue;">跳转到非tabbar日志页</view>

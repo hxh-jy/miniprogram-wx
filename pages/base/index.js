@@ -29,12 +29,18 @@ Page({
                 price: 60
             }
         ],
-        templateData: '通过模版传入的数据'
+        templateData: '通过模版传入的数据',
+        count: 1
     },
     handleInp(e) {
         let {value} = e.detail
         this.setData({ipval: value})
         console.log('键盘输入时触发',this.data.ipval)
+    },
+    countAdd(e) {
+        this.setData({
+            count: this.data.count + 1
+        })
     },
     /**
      * 生命周期函数--监听页面加载
@@ -71,6 +77,10 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
+        this.setData({
+            count: 0
+        })
+        wx.stopPullDownRefresh()
     },
 
     /**

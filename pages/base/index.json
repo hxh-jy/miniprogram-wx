@@ -1,5 +1,10 @@
 {
   "usingComponents": {
     "askComponent": "../../components/ask/ask"
+  },
+  "window": {
+    "enablePullDownRefresh" : true,
+    "backgroundColor": "#333",
+    "backgronudTextStyle": "light"
   }
 }
