@@ -2,4 +2,8 @@
   测试
   <view class="inter"></view>
   <van-button type="warning" bindtap="getInfo">按钮</van-button>
+  <view>
+    {{numA}} + {{numB}} = {{sum}}
+  </view> 
+  <van-button type="primary" bindtap="handleBtn1" data-step="{{1}}">numA +1</van-button>
 </view>
