@@ -12,4 +12,9 @@
     </rich-text>
     <text>{{m2.toLower('THIS IS  A internale wxs')}}</text>
     <wxs module="m2" src="../../utils/tools.wxs"></wxs>
+    <learn-slot>
+        <view slot="before">这里是插入到前置插槽中的内容</view>
+        <view slot="after">后置插槽</view>
+    </learn-slot>
+    
 </view>
