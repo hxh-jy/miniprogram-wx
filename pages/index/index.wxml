@@ -1,4 +1,5 @@
 <view class="test">
   测试
   <view class="inter"></view>
+  <van-button type="warning" bindtap="getInfo">按钮</van-button>
 </view>

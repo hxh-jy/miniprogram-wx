@@ -971,3 +971,161 @@ Component({
 
 ## 11.8 组件生命周期
 
++ created  在组件实例刚刚被创建时执行 
++ attached  在组件实例进入页面节点树时执行 
++ ready  在组件在视图层布局完成后执行
++  moved  在组件实例被移动到节点树另一个位置时执行 
++ detached  在组件实例被从页面节点树移除时执行 
++ error  每当组件方法抛出错误时执行
+
+**小程序组件中，最重要的生命周期函数有 3 个，分别是 created、attached、detached**
+
++ 组件实例刚被创建好的时候，created 生命周期函数会被触发
+  - 此时还不能调用 setData
+  - 通常在这个生命周期函数中，只应该用于给组件的 this 添加一些自定义的属性字段
++ 在组件完全初始化完毕、进入页面节点树后， attached 生命周期函数会被触发
+  - this.data 已被初始化完毕
+  - 这个生命周期很有用，绝大多数初始化的工作可以在这个时机进行（例如发请求获取初始数据）
++ 在组件离开页面节点树后， detached 生命周期函数会被触发
+
+**在小程序组件中，生命周期函数可以直接定义在 Component 构造器的第一级参数中，可以在 lifetimes 字段 内进行声明（这是推荐的方式，其优先级最高）。**
+
+## 11.9 插槽
+
+在自定义组件的 wxml 结构中，可以提供一个  节点（插槽），用于承载组件使用者提供的 wxml 结构
+
+**单个插槽**
+
+在小程序中，默认每个自定义组件中只允许使用一个  进行占位，这种个数上的限制叫做单个插槽
+
+**多个插槽**
+
++ 在小程序的自定义组件中，需要使用多  插槽时，可以在组件的 .js 文件中，通过如下方式进行启用。
+
+```js
+Component({
+    options:{
+        multipleSlots: true
+    }
+})
+```
+
++ 可以在组件的 .wxml 中使用多个  标签，以不同的 name 来区分不同的插槽。
++ 在使用带有多个插槽的自定义组件时，需要用 slot 属性来将节点插入到不同的  中。示例代码如下
+
+## 11.10 父子组件之间的通信
+
+**父子组件之间通信的 3 种方式**
+
++ 属性绑定
+
+  - 用于父组件向子组件的指定属性设置数据，仅能设置 JSON 兼容的数据,无法将方法传递给子组件。
+  - 子组件在 properties 节点中声明对应的属性并使用
+
++ 事件绑定
+
+  - 用于子组件向父组件传递数据，可以传递任意数据
+
+    ① 在父组件的 js 中，定义一个函数，这个函数即将通过自定义事件的形式，传递给子组件 
+
+    ② 在父组件的 wxml 中，通过自定义事件的形式，将步骤 1 中定义的函数引用，传递给子组件 
+
+    ③ 在子组件的 js 中，通过调用 this.triggerEvent('自定义事件名称', { /* 参数对象 */ }) ，将数据发送到父组件 
+
+    ④ 在父组件的 js 中，通过 e.detail 获取到子组件传递过来的数据
+
+    ```html
+        <learn-slot bindTransfer="handleTransfer" name="通过属性绑定的方式给子组件传递值">
+            <view slot="before">这里是插入到前置插槽中的内容</view>
+            <view slot="after">后置插槽</view>
+        </learn-slot>
+    
+    // js
+    handleTransfer(e) {
+    	console.log('事件绑定：',e.detail.str)
+    }
+    ```
+
++ 获取组件实例
+
+  - 父组件还可以通过 this.selectComponent() 获取子组件实例对象
+  - 这样就可以直接访问子组件的任意数据和方法
+
+# 十二、使用npm包
+
+## 12.1 构建npm 
+
+**使用npm包以前必须先构建npm，详细构建参考如下官网**
+
+[npm 支持 | 微信开放文档 (qq.com)](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html)
+
+小程序中已经支持使用 npm 安装第三方包，从而来提高小程序的开发效率。但是，在小程序中使用 npm 包有如下 3 个限制：
+
++ 不支持依赖于 Node.js 内置库的包
++ 不支持依赖于浏览器内置对象的包
++ 不支持依赖于 C++ 插件的包
+
+总结：虽然 npm 上的包有千千万，但是能供小程序使用的包却“为数不多”
+
+## 12.2 vant Weapp
+
+Vant Weapp 是有赞前端团队开源的一套小程序 UI 组件库，助力开发者快速搭建小程序应用。它所使用的是 MIT 开源许可协议，对商业使用比较友好。
+
+官方文档地址 https://youzan.github.io/vant-weapp
+
+在小程序项目中，安装 Vant 组件库主要分为如下 3 步： 
+
++ ① 通过 npm 安装（建议指定版本为@1.3.3）
+
++  ② 构建 npm 包
+
++  ③ 修改 app.json
+
+  ```json
+    "usingComponents": {
+      "van-button": "@vant/weapp/button/index"
+    },
+  ```
+
+```js
+<view class="test">
+  测试
+  <view class="inter"></view>
+  <van-button type="primary">按钮</van-button>
+</view>
+```
+
+## 12.3 使用npm包，Api Promise优化
+
+API Promise化，指的是通过额外的配置，将官方提供的、基于回调函数的异步 API，升级改造为基于 Promise 的异步 API，从而提高代码的可读性、维护性，避免回调地狱的问题
+
+**实现 API Promise化**
+
++ 在小程序中，实现 API Promise 化主要依赖于 miniprogram-api-promise 这个第三方的 npm 包。
+
+  - 安装 : `npm install miniprogram-api-promise  --save`	
+
+  - 引用： 在app.js中引用
+
+    ```js
+    import {promisifyAll} from 'miniprogram-api-promise'
+    const wxp = wx.p = {}
+    promisifyAll(wx,wxp)
+    ```
+
+  - 调用 Promise 化之后的异步 API
+
+    ```html
+     <van-button type="warning" bindtap="getInfo">按钮</van-button>
+    ```
+
+    ```js
+    async getInfo() {
+        const {data: res} = await wx.p.request({
+          url: 'https://www.escook.cn/api/color',
+        })
+        console.log('获取数据',res.data)
+     },
+    ```
+
+    

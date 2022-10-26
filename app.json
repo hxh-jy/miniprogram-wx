@@ -48,6 +48,9 @@
       }
     ]
   },
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

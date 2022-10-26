@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/hxh-jy/miniprogram-wx/issues"
   },
-  "homepage": "https://github.com/hxh-jy/miniprogram-wx#readme"
+  "homepage": "https://github.com/hxh-jy/miniprogram-wx#readme",
+  "keywords": [],
+  "dependencies": {
+    "@vant/weapp": "^1.3.3",
+    "miniprogram-api-promise": "^1.0.4"
+  }
 }

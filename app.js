@@ -1,4 +1,9 @@
 // app.js
+import { promisifyAll } from 'miniprogram-api-promise'
+const wxp = wx.p = {}
+promisifyAll(wx,wxp)
+// const wxp = wx.p = {}
+// promisifyAll(wx,wxp)
 App({
   // 小程序初始化完成时，执行此函数，全局只触发一次，可以做一些初始化的工作
   onLaunch: function(options){},

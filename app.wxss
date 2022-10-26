@@ -1,4 +1,7 @@
 /**app.wxss**/
+page {
+  --button-danger-background-color: '#000'
+}
 .container {
   height: 100%;
   display: flex;
