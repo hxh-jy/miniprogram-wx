@@ -12,9 +12,12 @@
     </rich-text>
     <text>{{m2.toLower('THIS IS  A internale wxs')}}</text>
     <wxs module="m2" src="../../utils/tools.wxs"></wxs>
-    <learn-slot>
+
+    <learn-slot class="son-component" bindTransfer="handleTransfer" name="通过属性绑定的方式给子组件传递值">
         <view slot="before">这里是插入到前置插槽中的内容</view>
         <view slot="after">后置插槽</view>
     </learn-slot>
-    
+    <button bindtap="getChild"> 
+        获取子组件实例
+    </button>
 </view>

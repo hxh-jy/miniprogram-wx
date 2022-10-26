@@ -2,4 +2,12 @@
     <slot name="before"></slot>
     <rich-text nodes="<h1 style='red: color'>插槽的使用</h1>"></rich-text>
     <slot name="after"></slot>
+    <view>接收父组件通过属性绑定的形式传递过来的值: 
+        <text style="color: skyblue;">{{name}}</text>
+    </view>
+    <view style="color: sandybrown;" bindtap="Transfer">
+        测试子组件通过事件绑定的形式给父组件传值
+    </view>
+
+    <text>通过父组件修改值：{{count}}</text>
 </view>

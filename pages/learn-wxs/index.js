@@ -1,6 +1,13 @@
 // pages/learn-wxs/index.js
 Page({
-
+    handleTransfer(e) {
+        console.log('事件绑定：',e.detail.str)
+    },
+    getChild() {
+        let child = this.selectComponent('.son-component')
+        console.log('获取子组件实例',child.test())
+        child.setData({count: child.data.count + 1})
+    },
     /**
      * 页面的初始数据
      */
