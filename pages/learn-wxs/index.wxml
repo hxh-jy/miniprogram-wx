@@ -1,0 +1,15 @@
+<view>
+    <rich-text nodes="<h1 style='color: red'>内嵌wxs的学习</h1>">
+    </rich-text>
+    <text>{{m1.toUpper('this is a toUpper')}}</text>
+    <wxs module="m1">
+        module.exports.toUpper = function(str) {
+            return str.toUpperCase()
+        }
+    </wxs>
+    <view>-------------------</view>
+    <rich-text nodes="<h1 style='color: red'>外联wxs的学习</h1>">
+    </rich-text>
+    <text>{{m2.toLower('THIS IS  A internale wxs')}}</text>
+    <wxs module="m2" src="../../utils/tools.wxs"></wxs>
+</view>

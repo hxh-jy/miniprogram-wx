@@ -6,7 +6,8 @@
     "pages/qa/index",
     "pages/base/index",
     "pages/reach-bottom/index",
-    "pages/pull-refresh/index"
+    "pages/pull-refresh/index",
+    "pages/learn-wxs/index"
   ],
   "window":{
     "backgroundTextStyle":"dark",
@@ -40,8 +41,8 @@
         "selectedIconPath": "static/icons/game_answer_active.png"
       },
       {
-        "pagePath": "pages/qa/index",
-        "text": "帮助",
+        "pagePath": "pages/learn-wxs/index",
+        "text": "wxs",
         "iconPath": "static/icons/game_info.png",
         "selectedIconPath": "static/icons/game_info_active.png"
       }
